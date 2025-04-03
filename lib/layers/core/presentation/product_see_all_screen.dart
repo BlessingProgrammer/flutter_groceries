@@ -130,16 +130,27 @@ class ProductCardItem extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  FloatingActionButton(
+                  ElevatedButton(
                     onPressed: () {},
-                    mini: true,
-                    elevation: 1,
-                    backgroundColor: algae,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(45, 45),
+                      padding: EdgeInsets.zero,
+                      elevation: 0,
+                      backgroundColor: algae,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17),
+                        side: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        ),
+                      ),
                     ),
-                    child: const Icon(Icons.add, size: 25, color: Colors.white),
+                    child: const Icon(
+                      Icons.add,
+                      size: 25,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),

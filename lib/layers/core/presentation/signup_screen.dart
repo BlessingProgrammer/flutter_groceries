@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
+import 'login_screen.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -15,7 +17,7 @@ class SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
+        body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -160,7 +162,14 @@ class SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: algae,
                   minimumSize: const Size(double.infinity, 67),
@@ -190,7 +199,14 @@ class SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(width: 3),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                     child: Text(
                       'Login?',

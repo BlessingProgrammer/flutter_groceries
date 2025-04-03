@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_groceries/layers/core/presentation/cart_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/explore_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/product_detail_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/shop_screen.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   final screens = [
     ShopScreen(),
     ExploreScreen(),
-    ProductDetailScreen(),
+    CartScreen(),
     ShopScreen(),
     ExploreScreen(),
   ];
@@ -25,34 +26,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: screens[_index],
-    bottomNavigationBar: NavigationBarTheme(
-      data: NavigationBarThemeData(
-        indicatorColor: Colors.transparent,
-        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
-              (Set<WidgetState> states) {
-            if (states.contains(WidgetState.selected)) {
+    bottomNavigationBar: Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        color: Colors.white,
+      ),
+      child: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          indicatorColor: Colors.transparent,
+          labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
+                return TextStyle(
+                  fontSize: 12,
+                  color: algae,
+                );
+              }
               return TextStyle(
                 fontSize: 12,
-                color: Colors.green, // Thay 'algae' bằng màu cụ thể
-                fontWeight: FontWeight.bold, // Tùy chọn: làm đậm khi chọn
+                color: Colors.black,
               );
-            }
-            return TextStyle(
-              fontSize: 12,
-              color: Colors.black, // Màu khi không được chọn
-            );
-          },
+            },
+          ),
         ),
-      ),
-      child: Card(
-        elevation: 1,
-        shadowColor: Colors.grey,
         child: NavigationBar(
-          height: 60,
+          height: 70,
           selectedIndex: _index,
-          // animationDuration: Duration(seconds: 2),
-          // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           onDestinationSelected: (index) => setState(() => this._index = index),
           destinations: [
             NavigationDestination(
@@ -72,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             ),
             NavigationDestination(
               icon: Image.asset("assets/images/heart.png"),
-              selectedIcon: Image.asset("assets/images/heart.png",color: algae,),
+              selectedIcon: Image.asset("assets/images/heart.png", color: algae),
               label: 'Favorite',
             ),
             NavigationDestination(

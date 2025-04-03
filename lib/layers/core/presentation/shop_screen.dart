@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/domain/fake_data/fake_category.dart';
 import 'package:flutter_groceries/layers/core/domain/fake_data/fake_product.dart';
+import 'package:flutter_groceries/layers/core/presentation/product_detail_screen.dart';
+import 'package:flutter_groceries/layers/core/presentation/product_see_all_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
+
+import 'package:flutter_groceries/layers/core/domain/fake_data/fake_cart.dart';
 
 class ShopScreen extends StatefulWidget {
   const ShopScreen({super.key});
@@ -111,8 +115,11 @@ class ShopScreenState extends State<ShopScreen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: FakeProduct.productList().length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ProductCardItem(
-                      fakeProduct: FakeProduct.productList()[index],
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: ProductCardItem(
+                        fakeProduct: FakeProduct.productList()[index],
+                      ),
                     );
                   },
                 ),
@@ -150,8 +157,11 @@ class ShopScreenState extends State<ShopScreen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: FakeProduct.productList().length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ProductCardItem(
-                      fakeProduct: FakeProduct.productList()[index],
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: ProductCardItem(
+                        fakeProduct: FakeProduct.productList()[index],
+                      ),
                     );
                   },
                 ),
@@ -202,8 +212,11 @@ class ShopScreenState extends State<ShopScreen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: FakeProduct.productList().length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ProductCardItem(
-                      fakeProduct: FakeProduct.productList()[index],
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: ProductCardItem(
+                        fakeProduct: FakeProduct.productList()[index],
+                      ),
                     );
                   },
                 ),
@@ -218,80 +231,121 @@ class ShopScreenState extends State<ShopScreen> {
 
 class ProductCardItem extends StatelessWidget {
   final FakeProduct fakeProduct;
+  final CartService _cartService = CartService();
+  ProductCardItem({required this.fakeProduct, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      color: soapstone,
-      margin: EdgeInsets.only(right: 15),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SizedBox(
-          width: 174,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  fakeProduct.image,
-                  height: 80,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                fakeProduct.name,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                fakeProduct.description,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    '\$ ${fakeProduct.price}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black87,
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.bold,
-                    ),
+    return InkWell(
+      onTap:(){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(fakeProduct: fakeProduct),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(8),
+      child: Card(
+        elevation: 1,
+        color: soapstone,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SizedBox(
+            width: 174,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    fakeProduct.image,
+                    height: 80,
+                    fit: BoxFit.cover,
                   ),
-                  FloatingActionButton(
-                    onPressed: () {},
-                    mini: true,
-                    elevation: 1,
-                    backgroundColor: algae,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(Icons.add, size: 25, color: Colors.white),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  fakeProduct.name,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black87,
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-            ],
+                ),
+                Text(
+                  fakeProduct.description,
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\$ ${fakeProduct.price}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black87,
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _cartService.addItem(
+                          fakeProduct.id.toString(),
+                          fakeProduct.name,
+                          fakeProduct.price,
+                          fakeProduct.image,
+                        );
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Added item to cart!'),
+                            duration: Duration(seconds: 2),
+                            action: SnackBarAction(
+                              label: 'UNDO',
+                              onPressed: () {
+                                _cartService.removeSingleItem(fakeProduct.id.toString());
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(45, 45),
+                        padding: EdgeInsets.zero,
+                        elevation: 0,
+                        backgroundColor: algae,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(17),
+                          side: const BorderSide(
+                            color: Colors.white,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        size: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-
-  ProductCardItem({required this.fakeProduct, super.key});
 }
 
 class CategoryCardItem extends StatelessWidget {
@@ -299,38 +353,49 @@ class CategoryCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      color: soapstone,
-      margin: EdgeInsets.only(right: 15),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SizedBox(
-          height: 105,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  fakeCategory.image,
-                  height: 50,
-                  fit: BoxFit.cover,
+    return InkWell(
+      onTap:(){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProductSeeAllScreen(),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(8),
+      child: Card(
+        elevation: 1,
+        color: soapstone,
+        margin: EdgeInsets.only(right: 15),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SizedBox(
+            height: 105,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    fakeCategory.image,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              SizedBox(width: 20),
-              Text(
-                fakeCategory.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black87,
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.bold,
+                SizedBox(width: 20),
+                Text(
+                  fakeCategory.name,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black87,
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -339,4 +404,3 @@ class CategoryCardItem extends StatelessWidget {
 
   CategoryCardItem({required this.fakeCategory, super.key});
 }
-
