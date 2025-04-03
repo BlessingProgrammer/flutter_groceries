@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
+import 'package:flutter_groceries/layers/core/presentation/verification_screen.dart';
 
 class NumberScreen extends StatefulWidget {
   const NumberScreen({super.key});
@@ -17,7 +18,14 @@ class NumberScreenState extends State<StatefulWidget> {
       child: Scaffold(
         appBar: AppBar(leading: Icon(Icons.arrow_back_ios)),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const VerificationScreen(),
+              ),
+            );
+          },
           backgroundColor: algae,
           foregroundColor: Colors.white,
           shape: const CircleBorder(),

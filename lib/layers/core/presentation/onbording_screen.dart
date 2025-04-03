@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_groceries/layers/core/presentation/login_screen.dart';
+import 'package:flutter_groceries/layers/core/presentation/sign_in_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
 class OnbordingScreen extends StatelessWidget {
@@ -52,7 +54,14 @@ class OnbordingScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 25),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignInScreen(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: algae,
                     minimumSize: const Size(double.infinity, 67),

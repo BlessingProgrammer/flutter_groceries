@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_groceries/layers/core/presentation/select_location_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -36,7 +37,14 @@ class VerificationState extends State<VerificationScreen> {
       child: Scaffold(
         appBar: AppBar(leading: Icon(Icons.arrow_back_ios)),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SelectLocationScreen(),
+              ),
+            );
+          },
           backgroundColor: algae,
           foregroundColor: Colors.white,
           shape: const CircleBorder(),
