@@ -68,6 +68,22 @@ flutter:
     - assets/images/g.png
     - assets/images/f.png
     - assets/images/flag.png
+    - assets/images/location_banner.png
+    - assets/images/caros.png
+    - assets/images/banner.png
+    - assets/images/apple_vector.png
+    - assets/images/banana.png
+    - assets/images/bakery.png
+    - assets/images/beverages.png
+    - assets/images/meat.png
+    - assets/images/oil.png
+    - assets/images/vegetable.png
+    - assets/images/heart.png
+    - assets/images/control.png
+    - assets/images/payment.png
+    - assets/images/order_accepted.png
+    - assets/images/order_bg.png
+    - assets/images/dialog.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

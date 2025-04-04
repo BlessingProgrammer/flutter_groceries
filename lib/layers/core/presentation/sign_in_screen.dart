@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_groceries/layers/core/presentation/login_screen.dart';
+import 'package:flutter_groceries/layers/core/presentation/number_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -57,10 +59,15 @@ class SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 15),
                   TextButton.icon(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(0)
-                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NumberScreen(),
+                        ),
+                      );
+                    },
+                    style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                     icon: Image.asset(
                       "assets/images/flag.png",
                       width: 34,
@@ -89,7 +96,14 @@ class SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 35),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: softBlue,
                       minimumSize: const Size(double.infinity, 67),
@@ -109,7 +123,14 @@ class SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 15),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: flatBlue,
                       minimumSize: const Size(double.infinity, 67),

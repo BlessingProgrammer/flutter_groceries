@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_groceries/layers/core/presentation/select_location_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -34,9 +35,24 @@ class VerificationState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(leading: Icon(Icons.arrow_back_ios)),
+        appBar: AppBar(
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            borderRadius: BorderRadius.circular(30),
+            child: Icon(Icons.arrow_back_ios),
+          ),
+        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SelectLocationScreen(),
+              ),
+            );
+          },
           backgroundColor: algae,
           foregroundColor: Colors.white,
           shape: const CircleBorder(),
@@ -128,12 +144,10 @@ class VerificationState extends State<VerificationScreen> {
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                   child: TextButton(
                     onPressed: () {},
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0)
-                    ),
+                    style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                     child: Text(
                       "Resend Code",
                       style: TextStyle(
