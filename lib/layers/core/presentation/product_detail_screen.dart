@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
+import '../domain/fake_data/fake_cart.dart';
 import '../domain/fake_data/fake_product.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -16,6 +16,8 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class ProductDetailScreenState extends State<ProductDetailScreen> {
+  final CartService _cartService = CartService();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -147,7 +149,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Container(height: 1, color: Colors.grey.withValues(alpha: 0.5)),
+                    Container(
+                      height: 1,
+                      color: Colors.grey.withValues(alpha: 0.5),
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -173,9 +178,9 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     const SizedBox(height: 5),
                     const Text(
                       'Apples are nutritious. '
-                          'Apples may be good for weight loss.'
-                          ' apples may be good for your heart. As part of a'
-                          ' healtful and varied diet.',
+                      'Apples may be good for weight loss.'
+                      ' apples may be good for your heart. As part of a'
+                      ' healtful and varied diet.',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
@@ -183,7 +188,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Container(height: 1, color: Colors.grey.withValues(alpha: 0.5)),
+                    Container(
+                      height: 1,
+                      color: Colors.grey.withValues(alpha: 0.5),
+                    ),
                     const SizedBox(height: 15),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -232,7 +240,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
                     const SizedBox(height: 15),
-                    Container(height: 1, color: Colors.grey.withValues(alpha: 0.5)),
+                    Container(
+                      height: 1,
+                      color: Colors.grey.withValues(alpha: 0.5),
+                    ),
                     const SizedBox(height: 15),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -253,11 +264,31 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Icon(Icons.star, color: Colors.deepOrangeAccent, size: 20),
-                            const Icon(Icons.star, color: Colors.deepOrangeAccent, size: 20),
-                            const Icon(Icons.star, color: Colors.deepOrangeAccent, size: 20),
-                            const Icon(Icons.star, color: Colors.deepOrangeAccent, size: 20),
-                            const Icon(Icons.star, color: Colors.deepOrangeAccent, size: 20),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.deepOrangeAccent,
+                              size: 20,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.deepOrangeAccent,
+                              size: 20,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.deepOrangeAccent,
+                              size: 20,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.deepOrangeAccent,
+                              size: 20,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.deepOrangeAccent,
+                              size: 20,
+                            ),
                             const SizedBox(width: 10),
                             const Icon(
                               Icons.keyboard_arrow_right,
@@ -272,7 +303,30 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _cartService.addItem(
+                            widget.fakeProduct.id.toString(),
+                            widget.fakeProduct.name,
+                            widget.fakeProduct.price,
+                            widget.fakeProduct.description,
+                            widget.fakeProduct.image,
+                          );
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Added item to cart!'),
+                              duration: Duration(seconds: 2),
+                              action: SnackBarAction(
+                                label: 'UNDO',
+                                onPressed: () {
+                                  _cartService.removeSingleItem(
+                                    widget.fakeProduct.id.toString(),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: algae,
                           minimumSize: const Size(double.infinity, 67),

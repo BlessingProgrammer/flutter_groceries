@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_groceries/layers/core/presentation/splash_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
-import 'layers/core/presentation/splash_screen.dart';
 import 'package:flutter/services.dart';
 
 void main() {

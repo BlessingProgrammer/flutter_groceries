@@ -2,6 +2,7 @@ class CartItem {
   final String id;
   final String name;
   final double price;
+  final String description;
   int quantity;
   final String imageUrl;
 
@@ -9,6 +10,7 @@ class CartItem {
     required this.id,
     required this.name,
     required this.price,
+    required this.description,
     this.quantity = 1,
     required this.imageUrl,
   });
@@ -53,14 +55,21 @@ class CartService {
     return total;
   }
 
-  void addItem(String productId, String name, double price, String imageUrl) {
+  void addItem(
+    String productId,
+    String name,
+    double price,
+    String description,
+    String imageUrl,
+  ) {
     if (_items.containsKey(productId)) {
       _items.update(
         productId.toString(),
-            (existingCartItem) => CartItem(
+        (existingCartItem) => CartItem(
           id: existingCartItem.id,
           name: existingCartItem.name,
           price: existingCartItem.price,
+          description: existingCartItem.description,
           quantity: existingCartItem.quantity + 1,
           imageUrl: existingCartItem.imageUrl,
         ),
@@ -68,15 +77,21 @@ class CartService {
     } else {
       _items.putIfAbsent(
         productId.toString(),
-            () => CartItem(
+        () => CartItem(
           id: productId,
           name: name,
           price: price,
+          description: description,
           quantity: 1,
           imageUrl: imageUrl,
         ),
       );
     }
+    _notifyListeners();
+  }
+
+  void clearItems() {
+    _items.clear();
     _notifyListeners();
   }
 
@@ -92,10 +107,11 @@ class CartService {
     if (_items[productId]!.quantity > 1) {
       _items.update(
         productId.toString(),
-            (existingCartItem) => CartItem(
+        (existingCartItem) => CartItem(
           id: existingCartItem.id,
           name: existingCartItem.name,
           price: existingCartItem.price,
+          description: existingCartItem.description,
           quantity: existingCartItem.quantity - 1,
           imageUrl: existingCartItem.imageUrl,
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/presentation/cart_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/explore_screen.dart';
-import 'package:flutter_groceries/layers/core/presentation/product_detail_screen.dart';
+import 'package:flutter_groceries/layers/core/presentation/setting_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/shop_screen.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
@@ -19,8 +19,8 @@ class _HomePageState extends State<HomePage> {
     ShopScreen(),
     ExploreScreen(),
     CartScreen(),
-    ShopScreen(),
     ExploreScreen(),
+    SettingScreen()
   ];
 
   @override

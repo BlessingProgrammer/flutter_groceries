@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/domain/fake_data/fake_product.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
+import '../domain/fake_data/fake_cart.dart';
+
 class ProductSeeAllScreen extends StatefulWidget {
   const ProductSeeAllScreen({super.key});
 
@@ -12,12 +14,19 @@ class ProductSeeAllScreen extends StatefulWidget {
 }
 
 class ProductSeeAllScreenState extends State<ProductSeeAllScreen> {
+  final CartService _cartService = CartService();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back_ios),
+          leading: TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios),
+          ),
           title: Align(
             alignment: Alignment.center,
             child: Text(
@@ -61,6 +70,7 @@ class ProductSeeAllScreenState extends State<ProductSeeAllScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return ProductCardItem(
                     fakeProduct: FakeProduct.productList()[index],
+                    cartService: _cartService,
                   );
                 },
               ),
@@ -74,8 +84,13 @@ class ProductSeeAllScreenState extends State<ProductSeeAllScreen> {
 
 class ProductCardItem extends StatelessWidget {
   final FakeProduct fakeProduct;
+  final CartService cartService;
 
-  const ProductCardItem({required this.fakeProduct, super.key});
+  const ProductCardItem({
+    required this.fakeProduct,
+    required this.cartService,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +146,30 @@ class ProductCardItem extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      cartService.addItem(
+                        fakeProduct.id.toString(),
+                        fakeProduct.name,
+                        fakeProduct.price,
+                        fakeProduct.description,
+                        fakeProduct.image,
+                      );
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Added item to cart!'),
+                          duration: Duration(seconds: 2),
+                          action: SnackBarAction(
+                            label: 'UNDO',
+                            onPressed: () {
+                              cartService.removeSingleItem(
+                                fakeProduct.id.toString(),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(45, 45),
                       padding: EdgeInsets.zero,
@@ -140,17 +178,10 @@ class ProductCardItem extends StatelessWidget {
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(17),
-                        side: const BorderSide(
-                          color: Colors.white,
-                          width: 1,
-                        ),
+                        side: const BorderSide(color: Colors.white, width: 1),
                       ),
                     ),
-                    child: const Icon(
-                      Icons.add,
-                      size: 25,
-                      color: Colors.white,
-                    ),
+                    child: const Icon(Icons.add, size: 25, color: Colors.white),
                   ),
                 ],
               ),

@@ -93,7 +93,14 @@ class ShopScreenState extends State<ShopScreen> {
                     style: TextStyle(fontSize: 24, color: Colors.black),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductSeeAllScreen(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                     child: Text(
                       'See all',
@@ -135,7 +142,14 @@ class ShopScreenState extends State<ShopScreen> {
                     style: TextStyle(fontSize: 24, color: Colors.black),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductSeeAllScreen(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                     child: Text(
                       'See all',
@@ -177,7 +191,14 @@ class ShopScreenState extends State<ShopScreen> {
                     style: TextStyle(fontSize: 24, color: Colors.black),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductSeeAllScreen(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                     child: Text(
                       'See all',
@@ -232,12 +253,13 @@ class ShopScreenState extends State<ShopScreen> {
 class ProductCardItem extends StatelessWidget {
   final FakeProduct fakeProduct;
   final CartService _cartService = CartService();
+
   ProductCardItem({required this.fakeProduct, super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:(){
+      onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -301,6 +323,7 @@ class ProductCardItem extends StatelessWidget {
                           fakeProduct.id.toString(),
                           fakeProduct.name,
                           fakeProduct.price,
+                          fakeProduct.description,
                           fakeProduct.image,
                         );
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -311,7 +334,9 @@ class ProductCardItem extends StatelessWidget {
                             action: SnackBarAction(
                               label: 'UNDO',
                               onPressed: () {
-                                _cartService.removeSingleItem(fakeProduct.id.toString());
+                                _cartService.removeSingleItem(
+                                  fakeProduct.id.toString(),
+                                );
                               },
                             ),
                           ),
@@ -325,10 +350,7 @@ class ProductCardItem extends StatelessWidget {
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(17),
-                          side: const BorderSide(
-                            color: Colors.white,
-                            width: 1,
-                          ),
+                          side: const BorderSide(color: Colors.white, width: 1),
                         ),
                       ),
                       child: const Icon(
@@ -354,12 +376,10 @@ class CategoryCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:(){
+      onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const ProductSeeAllScreen(),
-          ),
+          MaterialPageRoute(builder: (context) => const ProductSeeAllScreen()),
         );
       },
       borderRadius: BorderRadius.circular(8),

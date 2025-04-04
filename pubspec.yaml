@@ -80,6 +80,10 @@ flutter:
     - assets/images/vegetable.png
     - assets/images/heart.png
     - assets/images/control.png
+    - assets/images/payment.png
+    - assets/images/order_accepted.png
+    - assets/images/order_bg.png
+    - assets/images/dialog.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

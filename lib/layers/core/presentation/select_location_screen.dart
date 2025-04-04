@@ -33,7 +33,15 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(leading: Icon(Icons.arrow_back_ios)),
+        appBar: AppBar(
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            borderRadius: BorderRadius.circular(30),
+            child: Icon(Icons.arrow_back_ios),
+          ),
+        ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -111,7 +119,10 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                   contentPadding: EdgeInsets.zero,
                 ),
                 trailingIcon: const Icon(Icons.keyboard_arrow_down, size: 24),
-                selectedTrailingIcon: const Icon(Icons.keyboard_arrow_up, size: 24),
+                selectedTrailingIcon: const Icon(
+                  Icons.keyboard_arrow_up,
+                  size: 24,
+                ),
               ),
               Container(height: 1, color: Colors.grey),
               SizedBox(height: 20),
@@ -147,7 +158,10 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                   contentPadding: EdgeInsets.zero,
                 ),
                 trailingIcon: const Icon(Icons.keyboard_arrow_down, size: 24),
-                selectedTrailingIcon: const Icon(Icons.keyboard_arrow_up, size: 24),
+                selectedTrailingIcon: const Icon(
+                  Icons.keyboard_arrow_up,
+                  size: 24,
+                ),
               ),
               Container(height: 1, color: Colors.grey),
               SizedBox(height: 40),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_groceries/layers/core/domain/fake_data/fake_category.dart';
-import 'package:flutter_groceries/layers/core/domain/fake_data/fake_product.dart';
 import 'package:flutter_groceries/layers/core/presentation/ui/theme/color.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -86,8 +85,15 @@ class CategoryCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
-      color: soapstone,
+      color: fakeCategory.color.withValues(alpha: 0.2),
       margin: EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: fakeCategory.color,
+          width: 1.0,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: SizedBox(
